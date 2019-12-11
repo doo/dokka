@@ -20,14 +20,15 @@ open class DokkaPlugin(
     override fun apply(project: Project) {
         loadDokkaVersion()
         val dokkaRuntimeConfiguration = addConfiguration(project)
-        addTasks(project, dokkaRuntimeConfiguration, DokkaTask::class.java)
+        addTasks(project, dokkaRuntimeConfiguration, taskClass)
     }
 
     private fun loadDokkaVersion() = DokkaVersion.loadFrom(javaClass.getResourceAsStream("/META-INF/gradle-plugins/org.jetbrains.dokka.properties"))
 
     private fun addConfiguration(project: Project) =
         project.configurations.create("dokkaRuntime").apply {
-            defaultDependencies{ dependencies -> dependencies.add(project.dependencies.create("org.jetbrains.dokka:dokka-fatjar:${DokkaVersion.version}")) }
+//            defaultDependencies{ dependencies -> dependencies.add(project.dependencies.create("org.jetbrains.dokka:dokka-fatjar:${DokkaVersion.version}")) }
+            defaultDependencies { dependencies -> dependencies.add(project.dependencies.create("org.jetbrains.dokka:dokka-fatjar:0.10.0")) }
         }
 
     private fun addTasks(project: Project, runtimeConfiguration: Configuration, taskClass: Class<out DokkaTask>) {

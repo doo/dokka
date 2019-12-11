@@ -1,18 +1,18 @@
 import org.jetbrains.DependenciesVersionGetter
 
 allprojects {
-    ext {
-        if (!project.findProperty("dokka_version")) {
-            final String buildNumber = System.getenv("BUILD_NUMBER")
-            dokka_version = dokka_version_base + (buildNumber == null || System.getenv("FORCE_SNAPSHOT") != null ? "-SNAPSHOT" : "-$buildNumber")
-        }
-    }
+//    ext {
+////        if (!project.findProperty("dokka_version")) {
+////            final String buildNumber = System.getenv("BUILD_NUMBER")
+////            dokka_version = dokka_version_base + (buildNumber == null || System.getenv("FORCE_SNAPSHOT") != null ? "-SNAPSHOT" : "-$buildNumber")
+////        }
+//    }
 
     if (project == rootProject) {
         println "Publication version: $dokka_version"
     }
 
-    group 'org.jetbrains.dokka'
+    group 'io.scanbot.dokka'
     version dokka_version
 
     def repo = {
@@ -141,12 +141,19 @@ allprojects {
     plugins.withType(MavenPublishPlugin) {
         publishing {
             repositories {
+//                maven {
+//                    name 'distMaven'
+//                    url repoLocation
+//                }
                 maven {
-                    name 'distMaven'
-                    url repoLocation
+                    name 'scanbotNexus'
+                    url uri("http://nexus.scanbot.io/nexus/content/repositories/releases/")
+                    credentials {
+                        username = project.getProperty('NEXUS_LOGIN')
+                        password = project.getProperty('NEXUS_PASSWORD')
+                    }
                 }
             }
         }
-
     }
 }

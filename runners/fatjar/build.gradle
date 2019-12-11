@@ -38,13 +38,13 @@ shadowJar {
 
 apply plugin: 'maven-publish'
 
-publishing {
-    publications {
-        dokkaFatJar(MavenPublication) { publication ->
-            artifactId = 'dokka-fatjar'
-            project.shadow.component(publication)
-        }
-    }
-}
+//publishing {
+//    publications {
+//        dokkaFatJar(MavenPublication) { publication ->
+//            artifactId = 'dokka-fatjar'
+//            project.shadow.component(publication)
+//        }
+//    }
+//}
 
 bintrayPublication(project, ["dokkaFatJar"])

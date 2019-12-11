@@ -144,18 +144,18 @@ task sourceJar(type: Jar) {
 
 apply plugin: 'maven-publish'
 
-publishing {
-    publications {
-        dokkaMavenPlugin(MavenPublication) { MavenPublication publication ->
-            artifactId = 'dokka-maven-plugin'
-
-            artifact sourceJar {
-                classifier "sources"
-            }
-
-            CorrectShadowPublishing.configure(publication, project)
-        }
-    }
-}
+//publishing {
+//    publications {
+//        dokkaMavenPlugin(MavenPublication) { MavenPublication publication ->
+//            artifactId = 'dokka-maven-plugin'
+//
+//            artifact sourceJar {
+//                classifier "sources"
+//            }
+//
+//            CorrectShadowPublishing.configure(publication, project)
+//        }
+//    }
+//}
 
 bintrayPublication(project, ['dokkaMavenPlugin'])
