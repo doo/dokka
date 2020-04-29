@@ -153,6 +153,14 @@ allprojects {
                         password = project.getProperty('NEXUS_PASSWORD')
                     }
                 }
+                maven {
+                    name 'scanbotNexusSnapshot'
+                    url uri("http://nexus.scanbot.io/nexus/content/repositories/snapshots/")
+                    credentials {
+                        username = project.getProperty('NEXUS_LOGIN')
+                        password = project.getProperty('NEXUS_PASSWORD')
+                    }
+                }
             }
         }
     }
