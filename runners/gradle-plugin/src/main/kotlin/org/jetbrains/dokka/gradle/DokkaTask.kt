@@ -50,7 +50,7 @@ open class DokkaTask : DefaultTask() {
     @Input
     var outputDirectory: String = ""
 
-    var dokkaRuntime: Configuration? = null
+    @Internal var dokkaRuntime: Configuration? = null
 
     @Input
     var impliedPlatforms: MutableList<String> = arrayListOf()

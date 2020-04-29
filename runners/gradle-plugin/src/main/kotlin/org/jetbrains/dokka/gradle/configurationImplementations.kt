@@ -3,6 +3,7 @@ package org.jetbrains.dokka.gradle
 import groovy.lang.Closure
 import org.gradle.api.Action
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.util.ConfigureUtil
 import org.jetbrains.dokka.DokkaConfiguration
@@ -24,7 +25,7 @@ class GradleSourceRootImpl: SourceRoot, Serializable {
     override fun toString(): String = path
 }
 
-open class GradlePassConfigurationImpl(@Transient val name: String = ""): PassConfiguration {
+open class GradlePassConfigurationImpl(@Input @Transient val name: String = ""): PassConfiguration {
     @Input @Optional override var classpath: List<String> = emptyList()
     @Input override var moduleName: String = ""
     @Input override var sourceRoots: MutableList<SourceRoot> = mutableListOf()
@@ -50,7 +51,7 @@ open class GradlePassConfigurationImpl(@Transient val name: String = ""): PassCo
     @Input @Optional var platform: String? = null
     @Input override var targets: List<String> = emptyList()
     @Input @Optional override var sinceKotlin: String? = null
-    @Transient var collectKotlinTasks: (() -> List<Any?>?)? = null
+    @Internal @Transient var collectKotlinTasks: (() -> List<Any?>?)? = null
     @Input @Optional @Transient var androidVariant: String? = null
 
     fun kotlinTasks(taskSupplier: Callable<List<Any>>) {
